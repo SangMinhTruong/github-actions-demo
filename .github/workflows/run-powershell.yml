@@ -22,18 +22,18 @@ on:
         type: string
         default: |
           {
-            functionName: 'func-ipam-prod-swn'
-            appServiceName: 'app-ipam-prod-swn'
-            functionPlanName: 'asp-func-ipam-prod-swn'
-            appServicePlanName: 'asp-app-ipam-prod-swn'
-            cosmosAccountName: 'cosno-ipam-prod-swn'
-            cosmosContainerName: 'ctr-ipam-prod-swn'
-            cosmosDatabaseName: 'cosmos-ipam-prod-swn'
-            keyVaultName: 'kv-ipam-prod-swn'
-            workspaceName: 'log-ipam-prod-swn'
-            managedIdentityName: 'id-ipam-prod-swn'
-            resourceGroupName: 'rg-ipam-prod-swn'
-            storageAccountName: 'st-ipam-prod-swn'
+            functionName: 'func-ipam-prod-swn',
+            appServiceName: 'app-ipam-prod-swn',
+            functionPlanName: 'asp-func-ipam-prod-swn',
+            appServicePlanName: 'asp-app-ipam-prod-swn',
+            cosmosAccountName: 'cosno-ipam-prod-swn',
+            cosmosContainerName: 'ctr-ipam-prod-swn',
+            cosmosDatabaseName: 'cosmos-ipam-prod-swn',
+            keyVaultName: 'kv-ipam-prod-swn',
+            workspaceName: 'log-ipam-prod-swn',
+            managedIdentityName: 'id-ipam-prod-swn',
+            resourceGroupName: 'rg-ipam-prod-swn',
+            storageAccountName: 'st-ipam-prod-swn',
             containerRegistryName: 'cr-ipam-prod-swn'
           }
 
@@ -72,18 +72,22 @@ jobs:
 
             if ($mgmtGroupId -ne "") {
               $arguments.Add("MgmtGroupId", $mgmtGroupId)
+              Write-Host "MgmtGroupId NOT EMPTY"
             }
 
             if ($namePrefix -ne "") {
               $arguments.Add("NamePrefix", $namePrefix)
+              Write-Host "NamePrefix NOT EMPTY"
             }
 
             if ($engineAppName -ne "") {
               $arguments.Add("EngineAppName", $engineAppName)
+              Write-Host "EngineAppName NOT EMPTY"
             }
 
             if ($resourceNames -ne "") {
               $arguments.Add("ResourceNames", $resourceNames)
+              Write-Host "ResourceNames NOT EMPTY"
             }
 
             Write-Host "Location = ${location}"
