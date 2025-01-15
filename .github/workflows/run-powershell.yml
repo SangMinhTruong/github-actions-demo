@@ -40,25 +40,28 @@ jobs:
         uses: azure/powershell@v2
         with:
           inlineScript: |
-            $scriptPath = '${{ inputs.script-path }}'
             $location = '${{ inputs.location }}'
             $mgmtGroupId = '${{ inputs.management-group-id }}'
             $namePrefix = '${{ inputs.name-prefix }}'
             $engineAppName = '${{ inputs.engine-app-name }}'
 
-            $arguments = @("-Location $location", "-DisableUI")
+            $arguments = @{
+              Location = $location
+              DisableUI = $true
+            }
 
             if ($mgmtGroupId -ne "") {
-              $arguments += "-MgmtGroupId $mgmtGroupId"
+              $arguments.Add("MgmtGroupId", $mgmtGroupId)
             }
 
             if ($namePrefix -ne "") {
-              $arguments += "-NamePrefix $namePrefix"
+              $arguments.Add("NamePrefix", $namePrefix)
             }
 
             if ($engineAppName -ne "") {
-              $arguments += "-EngineAppName $engineAppName"
+              $arguments.Add("EngineAppName", $engineAppName)
             }
 
+            $scriptPath = '${{ inputs.script-path }}'
             & $scriptPath @arguments
           azPSVersion: "latest"
