@@ -22,19 +22,19 @@ on:
         type: string
         default: |
           {
-            functionName: 'func-ipam-prod-swn',
-            appServiceName: 'app-ipam-prod-swn',
-            functionPlanName: 'asp-func-ipam-prod-swn',
-            appServicePlanName: 'asp-app-ipam-prod-swn',
-            cosmosAccountName: 'cosno-ipam-prod-swn',
-            cosmosContainerName: 'ctr-ipam-prod-swn',
-            cosmosDatabaseName: 'cosmos-ipam-prod-swn',
-            keyVaultName: 'kv-ipam-prod-swn',
-            workspaceName: 'log-ipam-prod-swn',
-            managedIdentityName: 'id-ipam-prod-swn',
-            resourceGroupName: 'rg-ipam-prod-swn',
-            storageAccountName: 'st-ipam-prod-swn',
-            containerRegistryName: 'cr-ipam-prod-swn'
+            "functionName": "func-ipam-prod-swn",
+            "appServiceName": "app-ipam-prod-swn",
+            "functionPlanName": "asp-func-ipam-prod-swn",
+            "appServicePlanName": "asp-app-ipam-prod-swn",
+            "cosmosAccountName": "cosno-ipam-prod-swn",
+            "cosmosContainerName": "ctr-ipam-prod-swn",
+            "cosmosDatabaseName": "cosmos-ipam-prod-swn",
+            "keyVaultName": "kv-ipam-prod-swn",
+            "workspaceName": "log-ipam-prod-swn",
+            "managedIdentityName": "id-ipam-prod-swn",
+            "resourceGroupName": "rg-ipam-prod-swn",
+            "storageAccountName": "st-ipam-prod-swn",
+            "containerRegistryName": "cr-ipam-prod-swn"
           }
 
 permissions:
