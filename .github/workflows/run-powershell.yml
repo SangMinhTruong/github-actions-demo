@@ -2,6 +2,22 @@ name: Run Powershell
 
 on:
   workflow_dispatch:
+    inputs:
+      script-path:
+        type: string
+        default: ./scripts/deploy.ps1
+      location:
+        type: string
+        default: switzerlandnorth
+      management-group-id:
+        type: string
+        default: null
+      name-prefix:
+        type: string
+        default: null
+      engine-app-name:
+        type: string
+        default: null
 
 permissions:
   id-token: write
@@ -23,5 +39,11 @@ jobs:
       - name: Run Azure PowerShell inline script
         uses: azure/powershell@v2
         with:
-          inlineScript: ./scripts/deploy.ps1 -AppsOnly -DisableUI
+          inlineScript: |
+            ${{ inputs.script-path }} \
+            -Location ${{ inputs.location }} \
+            -DisableUI \
+            ${{ inputs.management-group-id && format('-MgmtGroupId {0}', inputs.management-group-id) }} \
+            ${{ inputs.name-prefix != null && format('-NamePrefix {0}', inputs.name-prefix) }} \
+            ${{ inputs.engine-app-name && format('-EngineAppName {0}', inputs.engine-app-name) }} \
           azPSVersion: "latest"
