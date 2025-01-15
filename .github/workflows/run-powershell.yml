@@ -9,15 +9,6 @@ on:
       location:
         type: string
         default: switzerlandnorth
-      management-group-id:
-        type: string
-        default: null
-      name-prefix:
-        type: string
-        default: null
-      engine-app-name:
-        type: string
-        default: null
       resource-names:
         type: string
         default: |
@@ -36,6 +27,12 @@ on:
             "storageAccountName": "st-ipam-prod-swn",
             "containerRegistryName": "cr-ipam-prod-swn"
           }
+      management-group-id:
+        type: string
+        default: null
+      engine-app-name:
+        type: string
+        default: null
 
 permissions:
   id-token: write
@@ -60,41 +57,26 @@ jobs:
           inlineScript: |
             $location = '${{ inputs.location }}'
             $disableUI = $true
-            $mgmtGroupId = '${{ inputs.management-group-id }}'
-            $namePrefix = '${{ inputs.name-prefix }}'
-            $engineAppName = '${{ inputs.engine-app-name }}'
             $resourceNames = '${{ inputs.resource-names }}' | ConvertFrom-Json -AsHashtable
+            $mgmtGroupId = '${{ inputs.management-group-id }}'
+            $engineAppName = '${{ inputs.engine-app-name }}'
 
             $arguments = @{
               Location = $location
               DisableUI = $disableUI
             }
 
-            if ($mgmtGroupId -ne "") {
-              $arguments.Add("MgmtGroupId", $mgmtGroupId)
-              Write-Host "MgmtGroupId NOT EMPTY"
+            if ($resourceNames -ne "") {
+              $arguments.Add("ResourceNames", $resourceNames)
             }
 
-            if ($namePrefix -ne "") {
-              $arguments.Add("NamePrefix", $namePrefix)
-              Write-Host "NamePrefix NOT EMPTY"
+            if ($mgmtGroupId -ne "") {
+              $arguments.Add("MgmtGroupId", $mgmtGroupId)
             }
 
             if ($engineAppName -ne "") {
               $arguments.Add("EngineAppName", $engineAppName)
-              Write-Host "EngineAppName NOT EMPTY"
             }
-
-            if ($resourceNames -ne "") {
-              $arguments.Add("ResourceNames", $resourceNames)
-              Write-Host "ResourceNames NOT EMPTY"
-            }
-
-            Write-Host "Location = ${location}"
-            Write-Host "DisableUI = ${disableUI}"
-            Write-Host "MgmtGroupId = ${mgmtGroupId}"
-            Write-Host "NamePrefix = ${namePrefix}"
-            Write-Host "ResourceNames = $($resourceNames | ConvertTo-Json -Compress)"
 
             $scriptPath = '${{ inputs.script-path }}'
             & $scriptPath @arguments
