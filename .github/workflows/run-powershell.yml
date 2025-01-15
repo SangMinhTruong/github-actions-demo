@@ -40,14 +40,25 @@ jobs:
         uses: azure/powershell@v2
         with:
           inlineScript: |
-            Write-Host "${{ inputs.management-group-id }}"
-            Write-Host "${{ inputs.name-prefix }}"
-            Write-Host "${{ inputs.engine-app-name }}"
+            $scriptPath = '${{ inputs.script-path }}'
+            $location = '${{ inputs.location }}'
+            $mgmtGroupId = '${{ inputs.management-group-id }}'
+            $namePrefix = '${{ inputs.name-prefix }}'
+            $engineAppName = '${{ inputs.engine-app-name }}'
 
-            ${{ inputs.script-path }} `
-              -Location ${{ inputs.location }} `
-              -DisableUI `
-              ${{ inputs.management-group-id && format('-MgmtGroupId {0} `', inputs.management-group-id) }}
-              ${{ inputs.name-prefix != null && format('-NamePrefix {0} `', inputs.name-prefix) }}
-              ${{ inputs.engine-app-name && format('-EngineAppName {0} `', inputs.engine-app-name) }}
+            $arguments = @("-Location $location", "-DisableUI")
+
+            if ($mgmtGroupId -ne "") {
+              $arguments += "-MgmtGroupId $mgmtGroupId"
+            }
+
+            if ($namePrefix -ne "") {
+              $arguments += "-NamePrefix $namePrefix"
+            }
+
+            if ($engineAppName -ne "") {
+              $arguments += "-EngineAppName $engineAppName"
+            }
+
+            & $scriptPath @arguments
           azPSVersion: "latest"
