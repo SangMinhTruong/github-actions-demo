@@ -43,7 +43,7 @@ jobs:
             ${{ inputs.script-path }} `
               -Location ${{ inputs.location }} `
               -DisableUI `
-              ${{ inputs.management-group-id && format('-MgmtGroupId {0}', inputs.management-group-id) }} `
-              ${{ inputs.name-prefix != null && format('-NamePrefix {0}', inputs.name-prefix) }} `
-              ${{ inputs.engine-app-name && format('-EngineAppName {0}', inputs.engine-app-name) }}
+              ${{ inputs.management-group-id && format('-MgmtGroupId {0} `', inputs.management-group-id) }}
+              ${{ inputs.name-prefix != null && format('-NamePrefix {0} `', inputs.name-prefix) }}
+              ${{ inputs.engine-app-name && format('-EngineAppName {0} `', inputs.engine-app-name) }}
           azPSVersion: "latest"
