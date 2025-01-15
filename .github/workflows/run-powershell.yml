@@ -41,13 +41,14 @@ jobs:
         with:
           inlineScript: |
             $location = '${{ inputs.location }}'
+            $disableUI = $true
             $mgmtGroupId = '${{ inputs.management-group-id }}'
             $namePrefix = '${{ inputs.name-prefix }}'
             $engineAppName = '${{ inputs.engine-app-name }}'
 
             $arguments = @{
               Location = $location
-              DisableUI = $true
+              DisableUI = $disableUI
             }
 
             if ($mgmtGroupId -ne "") {
@@ -61,6 +62,12 @@ jobs:
             if ($engineAppName -ne "") {
               $arguments.Add("EngineAppName", $engineAppName)
             }
+
+            Write-Host "Location = ${location}"
+            Write-Host "DisableUI = ${disableUI}"
+            Write-Host "MgmtGroupId = ${mgmtGroupId}"
+            Write-Host "NamePrefix = ${namePrefix}"
+            Write-Host "EngineAppName = ${engineAppName}"
 
             $scriptPath = '${{ inputs.script-path }}'
             & $scriptPath @arguments
