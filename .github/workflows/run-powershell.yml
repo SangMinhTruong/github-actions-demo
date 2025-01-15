@@ -40,6 +40,10 @@ jobs:
         uses: azure/powershell@v2
         with:
           inlineScript: |
+            Write-Host "${{ inputs.management-group-id }}"
+            Write-Host "${{ inputs.name-prefix }}"
+            Write-Host "${{ inputs.engine-app-name }}"
+
             ${{ inputs.script-path }} `
               -Location ${{ inputs.location }} `
               -DisableUI `
